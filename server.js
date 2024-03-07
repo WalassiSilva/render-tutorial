@@ -12,7 +12,11 @@ app.get("/", (req, res) => {
 
 app.get("/api/items", async (req, res) => {
   try {
-    const { rows } = await itemsPool.query("SELECT * FROM items");
+    const { rows: allItems } = await itemsPool.query("SELECT * FROM items");
+    res.json({
+      allItems,
+    });
+
   } catch (error) {
     console.log(error);
     res.status(500).send({ message: error });
